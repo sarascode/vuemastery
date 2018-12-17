@@ -1,10 +1,12 @@
 import EventService from '@/services/EventService.js'
+export const namespaced = true
 
 export const state = {
   event_total: 0,
   events: [],
   event: {}
 }
+
 export const mutations = {
   ADD_EVENT(state, event) {
     state.events.push(event)
@@ -19,6 +21,7 @@ export const mutations = {
     state.event = event
   }
 }
+
 export const getters = {
   catLength: state => {
     return state.categories.length
@@ -36,6 +39,7 @@ export const getters = {
     //find the event/todo where the event/todo id is equal to id
   }
 }
+
 export const actions = {
   //takes commit from the context object and the payload
   createEvent({ commit }, event) {
