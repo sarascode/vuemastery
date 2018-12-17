@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    event_total: 0,
     user: { id: 'abc123', name: 'Adam' },
     categories: [
       'sustainability',
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     SET_EVENTS(state, events) {
       state.events = events
+    },
+    EVENT_TOTAL(state, total) {
+      state.event_total = total
     }
   },
   getters: {
@@ -59,6 +63,7 @@ export default new Vuex.Store({
     fetchEvents({ commit }, { perPage, page }) {
       EventService.getEvents(perPage, page)
         .then(response => {
+          commit('EVENT_TOTAL', response.headers['x-total-count'])
           commit('SET_EVENTS', response.data)
         })
         .catch(error => {

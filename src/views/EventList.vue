@@ -5,7 +5,9 @@
     <template v-if="page != 1">
       <router-link :to="{name: 'event-list', query: { page: page -1 }}" rel="prev">Prev Page</router-link>
     </template>|
-    <router-link :to="{name: 'event-list', query: { page: page +1 }}" rel="next">Next Page</router-link>
+    <template v-if="page < pageTotal ">
+      <router-link :to="{name: 'event-list', query: { page: page +1 }}" rel="next">Next Page</router-link>
+    </template>
     <BaseIcon/>
   </div>
 </template>
@@ -17,6 +19,7 @@ export default {
   components: {
     EventCard
   },
+
   created() {
     this.$store.dispatch('fetchEvents', {
       perPage: 3,
@@ -27,8 +30,13 @@ export default {
     page() {
       return parseInt(this.$route.query.page) || 1
     },
-    ...mapState(['events'])
-  }
+    pageTotal() {
+      let pages = this.event_total / 3
+      return Math.ceil(pages)
+    },
+    ...mapState(['events', 'event_total'])
+  },
+  mounted() {}
 }
 </script>
 
