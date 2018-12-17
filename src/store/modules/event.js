@@ -23,19 +23,13 @@ export const mutations = {
 }
 
 export const getters = {
-  catLength: state => {
-    return state.categories.length
-  },
-  doneTodos: state => {
-    return state.todos.filter(todo => todo.done)
-  },
   activeTodosCount: (state, getters) => {
     return state.todos.length - getters.doneTodos.length
     //total todos- the todos that are done
     //opt 2: state.todos.filter(todo => !todo.done).length
   },
   getEventById: state => id => {
-    return state.todos.find(todo => todo.id === id)
+    return state.events.find(event => event.id === id)
     //find the event/todo where the event/todo id is equal to id
   }
 }
